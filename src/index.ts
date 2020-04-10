@@ -19,6 +19,9 @@ bot.on('ready', () => {
   console.log('Ready!');
 });
 
+bot.on('warn', console.warn);
+bot.on('error', console.error);
+
 // bootstrap function to start the bot
 const bootstrap = async () => {
   // connect to the database
@@ -33,7 +36,7 @@ const bootstrap = async () => {
   // get list of files that implement bot events
   const eventFiles = fs
     .readdirSync(path.join(__dirname, 'events'))
-    .filter((file: string) => file.endsWith('.ts'));
+    .filter((file: string) => file.endsWith('.ts') || file.endsWith('.js'));
 
   // load all events to bot
   eventFiles.forEach(async (file) => {
