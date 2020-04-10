@@ -26,6 +26,8 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc && tsc -P tsconfig.migrations.json",
+    "db:migrate": "typeorm migration:run",
+    "db:revert": "typeorm migration:revert",
     "dev": "tsnd --respawn --no-notify src/index.ts"
   }
 }

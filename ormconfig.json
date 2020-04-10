@@ -1,6 +1,6 @@
 {
   "type": "postgres",
-  "url": "postgres://postgres:ozokudev@localhost/northbot",
+  "url": "postgres://postgres:ozokudev@localhost/northbot2",
   "entities": [
     "dist/entities/*.js"
   ],
