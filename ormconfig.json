@@ -1,0 +1,13 @@
+{
+  "type": "postgres",
+  "url": "postgres://postgres:ozokudev@localhost/northbot",
+  "entities": [
+    "dist/entities/*.js"
+  ],
+  "migrations": [
+    "migrations/*.js"
+  ],
+  "cli": {
+    "migrationsDir": "migrations"
+  }
+}

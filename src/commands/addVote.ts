@@ -1,0 +1,29 @@
+import { TextChannel } from 'discord.js';
+
+import { Command, Executor } from '../Command';
+import { getNorthernOrder } from '..';
+import { channels } from '../config';
+
+const executor: Executor = async (message, args) => {
+  const north = getNorthernOrder();
+  if (!north) throw new Error('No NRTH, WTF?');
+
+  const data = JSON.parse(args.join(' '));
+  const voteChannel = north.channels.cache.get(channels.votes) as TextChannel;
+
+  const msg = await voteChannel.send(data.message);
+
+  for (const reaction of data.reactions) {
+    await msg.react(reaction);
+  }
+
+  await message.delete();
+};
+
+const addVote: Command = {
+  name: 'addVote',
+  description: 'Adds a vote to the #vote channel',
+  execute: executor,
+};
+
+export default addVote;
