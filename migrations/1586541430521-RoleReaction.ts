@@ -1,9 +1,9 @@
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
-export class ReactionRoles1586339241306 implements MigrationInterface {
+export class RoleReaction1586541430521 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<any> {
     await queryRunner.query(
-      'CREATE TABLE Role_Reaction (id character varying PRIMARY KEY NOT NULL, roles json[])',
+      'CREATE TABLE Role_Reaction (id SERIAL NOT NULL PRIMARY KEY, msgID character varying NOT NULL, emoji character varying NOT NULL, roleID character varying NOT NULL)',
     );
   }
 
