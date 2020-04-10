@@ -1,7 +1,7 @@
 {
   "name": "northbot",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "license": "MIT",
   "private": true,
   "dependencies": {
@@ -24,6 +24,8 @@
     "typescript": "^3.8.3"
   },
   "scripts": {
+    "start": "node dist/index.js",
+    "build": "tsc && tsc -P tsconfig.migrations.json",
     "dev": "tsnd --respawn --no-notify src/index.ts"
   }
 }
