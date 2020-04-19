@@ -3,6 +3,7 @@ import { MessageReaction, User, PartialUser, TextChannel, GuildMember, Role } fr
 import RoleReaction from '../entities/RoleReaction';
 import { EventHandler, Event } from '../Event';
 import { getNorthernOrder } from '..';
+import { channels } from '../config';
 
 const handler: EventHandler = async (reaction: MessageReaction, user: User | PartialUser) => {
   const north = getNorthernOrder();
@@ -16,6 +17,8 @@ const handler: EventHandler = async (reaction: MessageReaction, user: User | Par
       return;
     }
   }
+
+  if (reaction.message.channel.id !== channels.roles) return;
 
   const roleReactions = await RoleReaction.find({ cache: 60000 });
   if (roleReactions.length === 0) return;
