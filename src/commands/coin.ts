@@ -2,7 +2,7 @@ import { MessageEmbed } from 'discord.js';
 
 import { Executor, Command } from '../Command';
 
-const flip = () => Math.random() >= 0.5;
+const coinflip = () => Math.random() >= 0.5;
 
 const coinify = (heads: boolean) => (heads ? 'heads' : 'tails');
 
@@ -13,7 +13,7 @@ const executor: Executor = async (msg, args) => {
     if (Math.random() < 0.03) {
       embed.setDescription("It landed on it's side.");
     } else {
-      embed.setDescription(`It landed on ${coinify(flip())}.`);
+      embed.setDescription(`It landed on ${coinify(coinflip())}.`);
     }
 
     await msg.channel.send(embed);
@@ -42,7 +42,7 @@ const executor: Executor = async (msg, args) => {
   const flips: boolean[] = [];
 
   for (let i = 0; i < amount; i++) {
-    flips.push(flip());
+    flips.push(coinflip());
   }
 
   let heads = 0;
@@ -58,10 +58,10 @@ const executor: Executor = async (msg, args) => {
   await msg.channel.send(embed);
 };
 
-const coin: Command = {
-  name: 'coin',
+const flip: Command = {
+  name: 'flip',
   description: 'Flip coins',
   execute: executor,
 };
 
-export default coin;
+export default flip;
