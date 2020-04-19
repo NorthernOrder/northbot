@@ -16,3 +16,8 @@ export const freeGameFilters = [
   'ubisoft',
   'uplay',
 ];
+
+export const roles = {
+  staff: '683062083851386926',
+  admin: '232906396851634176',
+};

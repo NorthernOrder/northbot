@@ -1,4 +1,4 @@
-import { Command, Executor } from '../Command';
+import { Command, Executor, Permission } from '../Command';
 
 const executor: Executor = async (msg, [amount]) => {
   await msg.channel.bulkDelete(parseInt(amount, 10) || 1);
@@ -7,6 +7,7 @@ const executor: Executor = async (msg, [amount]) => {
 const deleteCommand: Command = {
   name: 'delete',
   description: 'Delete messages',
+  permission: Permission.Staff,
   execute: executor,
 };
 

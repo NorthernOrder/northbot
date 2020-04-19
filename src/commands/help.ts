@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 
-import { Executor, Command } from '../Command';
+import { Executor, Command, Permission } from '../Command';
 import { commands } from '../events/message';
 
 const executor: Executor = async (msg) => {
@@ -15,6 +15,7 @@ const executor: Executor = async (msg) => {
 const help: Command = {
   name: 'help',
   description: 'The command you just ran',
+  permission: Permission.Everyone,
   execute: executor,
 };
 

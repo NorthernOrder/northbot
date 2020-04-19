@@ -1,6 +1,6 @@
 import { TextChannel } from 'discord.js';
 
-import { Command, Executor } from '../Command';
+import { Command, Executor, Permission } from '../Command';
 import { getNorthernOrder } from '..';
 import { channels } from '../config';
 
@@ -23,6 +23,7 @@ const executor: Executor = async (message, args) => {
 const addVote: Command = {
   name: 'addVote',
   description: 'Adds a vote to the #vote channel',
+  permission: Permission.Admin,
   execute: executor,
 };
 

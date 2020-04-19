@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 
-import { Executor, Command } from '../Command';
+import { Executor, Command, Permission } from '../Command';
 
 interface Roll {
   dice: string;
@@ -73,6 +73,7 @@ const executor: Executor = async (msg, args) => {
 const roll: Command = {
   name: 'roll',
   description: 'Roll dices',
+  permission: Permission.Everyone,
   execute: executor,
 };
 

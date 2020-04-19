@@ -6,7 +6,7 @@ import { Collection, Message, TextChannel } from 'discord.js';
 import { channels, freeGameFilters, roles } from '../config';
 import { bot, getNorthernOrder } from '..';
 import { Event, EventHandler } from '../Event';
-import { Command } from '../Command';
+import { Command, Permission } from '../Command';
 
 // collection of all the implemented commands
 export const commands = new Collection<string, Command>();
@@ -62,6 +62,9 @@ const handler: EventHandler = async (msg: Message) => {
   // ignore messages sent by a bot
   if (msg.author.bot) return;
 
+  // no DMs yet
+  if (!msg.member || !msg.guild) return;
+
   // f in chat
   if (msg.content.toLowerCase() === 'f') {
     const FEmoji = bot.emojis.cache.get('682623831726227542');
@@ -69,9 +72,6 @@ const handler: EventHandler = async (msg: Message) => {
     await msg.react(FEmoji);
     return;
   }
-
-  // must be part of staff currently
-  if (!msg.member?.permissions.has('MANAGE_MESSAGES')) return;
 
   // must use prefix
   if (!msg.content.startsWith(process.env.PREFIX)) return;
@@ -84,6 +84,22 @@ const handler: EventHandler = async (msg: Message) => {
 
   // if we can't find a command, do nothing
   if (!command) return;
+
+  // Permission Checks
+  // Staff
+  if (command.permission === Permission.Staff && !msg.member.roles.cache.has(roles.staff)) {
+    return;
+  }
+
+  // Admin
+  if (command.permission === Permission.Admin && !msg.member.roles.cache.has(roles.admin)) {
+    return;
+  }
+
+  // Owner
+  if (command.permission === Permission.Owner && msg.author.id !== msg.guild.ownerID) {
+    return;
+  }
 
   // try to execute the command, if it fails tell the user and log the error to console
   try {

@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 
-import { Executor, Command } from '../Command';
+import { Executor, Command, Permission } from '../Command';
 
 const coinflip = () => Math.random() >= 0.5;
 
@@ -61,6 +61,7 @@ const executor: Executor = async (msg, args) => {
 const flip: Command = {
   name: 'flip',
   description: 'Flip coins',
+  permission: Permission.Everyone,
   execute: executor,
 };
 

@@ -1,7 +1,7 @@
 import { TextChannel } from 'discord.js';
 
 import RoleReaction from '../entities/RoleReaction';
-import { Command, Executor } from '../Command';
+import { Command, Executor, Permission } from '../Command';
 import { getNorthernOrder } from '..';
 import { channels } from '../config';
 
@@ -25,6 +25,7 @@ const executor: Executor = async (message, args) => {
 const addReactionRole: Command = {
   name: 'addReactionRole',
   description: 'Adds a reaction role to the #roles channel',
+  permission: Permission.Admin,
   execute: executor,
 };
 
