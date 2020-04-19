@@ -60,6 +60,7 @@ const executor: Executor = async (msg, args) => {
 
 const flip: Command = {
   name: 'flip',
+  usage: 'flip [amount]',
   description: 'Flip coins',
   permission: Permission.Everyone,
   execute: executor,

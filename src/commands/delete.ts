@@ -6,6 +6,7 @@ const executor: Executor = async (msg, [amount]) => {
 
 const deleteCommand: Command = {
   name: 'delete',
+  usage: 'delete [amount]',
   description: 'Delete messages',
   permission: Permission.Staff,
   execute: executor,

@@ -11,6 +11,7 @@ export enum Permission {
 
 export interface Command {
   name: string;
+  usage: string;
   description: string;
   permission: Permission;
   execute: (message: Message, args: string[]) => Promise<void>;

@@ -72,7 +72,9 @@ const executor: Executor = async (msg, args) => {
 
 const roll: Command = {
   name: 'roll',
-  description: 'Roll dices',
+  usage: 'roll <dices>...',
+  description:
+    'Roll dices. \n\nExamples: \n4d20 - rolls 4 D20 dices \n3D6 d12 - rolls 3 D6 dices and 1 D12 dice',
   permission: Permission.Everyone,
   execute: executor,
 };

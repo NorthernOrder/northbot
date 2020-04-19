@@ -22,6 +22,7 @@ const executor: Executor = async (message, args) => {
 
 const addVote: Command = {
   name: 'addVote',
+  usage: 'addVote <JSON>',
   description: 'Adds a vote to the #vote channel',
   permission: Permission.Admin,
   execute: executor,

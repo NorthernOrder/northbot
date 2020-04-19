@@ -24,6 +24,7 @@ const executor: Executor = async (message, args) => {
 
 const addReactionRole: Command = {
   name: 'addReactionRole',
+  usage: 'addReactionRole <JSON>',
   description: 'Adds a reaction role to the #roles channel',
   permission: Permission.Admin,
   execute: executor,
