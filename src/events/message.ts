@@ -3,7 +3,7 @@ import path from 'path';
 
 import { Collection, Message, TextChannel } from 'discord.js';
 
-import { channels, freeGameFilters, prefix } from '../config';
+import { channels, freeGameFilters, roles } from '../config';
 import { bot, getNorthernOrder } from '..';
 import { Event, EventHandler } from '../Event';
 import { Command } from '../Command';
@@ -74,7 +74,7 @@ const handler: EventHandler = async (msg: Message) => {
   if (!msg.member?.permissions.has('MANAGE_MESSAGES')) return;
 
   // must use prefix
-  if (!msg.content.startsWith(prefix)) return;
+  if (!msg.content.startsWith(process.env.PREFIX)) return;
 
   // slice the message content to the command name and argument list
   const [cmd, ...args] = msg.content.slice(1).split(' ');

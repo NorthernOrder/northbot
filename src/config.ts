@@ -16,5 +16,3 @@ export const freeGameFilters = [
   'ubisoft',
   'uplay',
 ];
-
-export const prefix = '|';
