@@ -1,12 +1,11 @@
 import { TextChannel } from 'discord.js';
 
-import { Command, Executor, Permission } from '../Command';
+import { Command, Executor, Permission } from '../types/Command';
 import { getNorthernOrder } from '..';
 import { channels } from '../config';
 
 const executor: Executor = async (message, args) => {
   const north = getNorthernOrder();
-  if (!north) throw new Error('No NRTH, WTF?');
 
   const data = JSON.parse(args.join(' '));
   const voteChannel = north.channels.cache.get(channels.votes) as TextChannel;

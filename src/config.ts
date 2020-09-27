@@ -3,6 +3,7 @@ export const channels = {
   nrthFreeGames: '657318341328764958',
   roles: '683063308827361342',
   votes: '363030039152820225',
+  bot: '365099515872542720',
 };
 
 export const freeGameFilters = [

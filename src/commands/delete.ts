@@ -1,7 +1,8 @@
-import { Command, Executor, Permission } from '../Command';
+import { TextChannel } from 'discord.js';
+import { Command, Executor, Permission } from '../types/Command';
 
 const executor: Executor = async (msg, [amount]) => {
-  await msg.channel.bulkDelete(parseInt(amount, 10) || 1);
+  await (msg.channel as TextChannel).bulkDelete(parseInt(amount, 10) || 1);
 };
 
 const deleteCommand: Command = {

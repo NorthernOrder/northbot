@@ -20,8 +20,8 @@ module.exports = {
       },
     ],
     '@typescript-eslint/explicit-function-return-type': 'off', // can be inferred implicitly
+    '@typescript-eslint/interface-name-prefix': 'off', // we need to use I prefixed interfaces
     '@typescript-eslint/no-explicit-any': 'off', // we need to sometimes get off the type system
     'import/no-unresolved': 'off', // typescript already knows what imports resolve
-    '@typescript-eslint/interface-name-prefix': 'off', // we need to use I prefixed interfaces
   },
 };

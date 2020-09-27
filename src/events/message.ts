@@ -1,20 +1,18 @@
 import fs from 'fs';
 import path from 'path';
 
-import { Collection, Message, TextChannel } from 'discord.js';
+import { Collection, Message } from 'discord.js';
 
-import { channels, freeGameFilters, roles } from '../config';
-import { bot, getNorthernOrder } from '..';
-import { Event, EventHandler } from '../Event';
-import { Command, Permission } from '../Command';
+import { roles } from '../config';
+import { P } from '..';
+import { Event, MessageEventHandler } from '../types/Event';
+import { Command, Permission } from '../types/Command';
 
 // collection of all the implemented commands
 export const commands = new Collection<string, Command>();
 
 // list of all the files that have command implementations
-const commandFiles = fs
-  .readdirSync(path.join(__dirname, '..', 'commands'))
-  .filter((file: string) => file.endsWith('.ts') || file.endsWith('.js'));
+const commandFiles = fs.readdirSync(path.join(__dirname, '..', 'commands'));
 
 // load all commands to the collection for later use
 commandFiles.forEach(async (file) => {
@@ -23,58 +21,15 @@ commandFiles.forEach(async (file) => {
   commands.set(command.name, command);
 });
 
-// handler for the private server's free games channel's messages
-const handleFreeGame = (msg: Message) => {
-  const north = getNorthernOrder();
-  if (!north) throw new Error('No NRTH, WTF?');
-
-  // get end of game store tag of message
-  const storeTagEnd = msg.content.indexOf(']');
-
-  // get the store tag from the message
-  const storeTag = msg.content.slice(1, storeTagEnd).toLowerCase();
-
-  // check that the store is included in our filters
-  let included = false;
-
-  freeGameFilters.forEach((filter) => {
-    if (storeTag.includes(filter)) included = true;
-  });
-
-  if (!included) return;
-
-  // send message to NRTH #free-games channel
-  (north.channels.cache.get(channels.nrthFreeGames) as TextChannel).send([
-    '<@&683725383408943212>,',
-    msg.content,
-  ]);
-};
-
-const handler: EventHandler = async (msg: Message) => {
-  const north = getNorthernOrder();
-  if (!north) return;
-  // if message is coming from the private server's free games channel handle it separately
-  if (msg.channel.id === channels.privateFreeGames) {
-    handleFreeGame(msg);
-    return;
-  }
-
+const handler: MessageEventHandler = async (msg: Message) => {
   // ignore messages sent by a bot
   if (msg.author.bot) return;
 
   // no DMs yet
   if (!msg.member || !msg.guild) return;
 
-  // f in chat
-  if (msg.content.toLowerCase() === 'f') {
-    const FEmoji = bot.emojis.cache.get('682623831726227542');
-    if (!FEmoji) return;
-    await msg.react(FEmoji);
-    return;
-  }
-
   // must use prefix
-  if (!msg.content.startsWith(process.env.PREFIX)) return;
+  if (!msg.content.startsWith(P)) return;
 
   // slice the message content to the command name and argument list
   const [cmd, ...args] = msg.content.slice(1).split(' ');

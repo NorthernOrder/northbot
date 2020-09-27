@@ -1,8 +1,10 @@
 import { MessageEmbed } from 'discord.js';
 
-import { Executor, Command, Permission } from '../Command';
+import { Executor, Command, Permission } from '../types/Command';
 import { commands } from '../events/message';
 import { roles } from '../config';
+import { bold } from '../utils/chat';
+import { P } from '..';
 
 const executor: Executor = async (msg, args) => {
   const embed = new MessageEmbed();
@@ -34,9 +36,9 @@ const executor: Executor = async (msg, args) => {
       embed.setDescription(`Unknown command ${args[0]}`);
     } else {
       embed.setTitle(`Help - ${command.name}`);
-      embed.addField('Usage', '`' + command.usage + '`');
-      embed.addField('Description', command.description);
-      embed.addField('Permission', command.permission);
+      embed.addField(bold('Usage'), `\`${P}${command.usage}\``);
+      embed.addField(bold('Description'), command.description);
+      embed.addField(bold('Permission'), command.permission);
     }
   }
 

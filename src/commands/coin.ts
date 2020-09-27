@@ -1,6 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 
-import { Executor, Command, Permission } from '../Command';
+import { Executor, Command, Permission } from '../types/Command';
 
 const coinflip = () => Math.random() >= 0.5;
 

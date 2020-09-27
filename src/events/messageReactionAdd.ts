@@ -1,13 +1,12 @@
 import { MessageReaction, User, PartialUser, GuildMember, Role, TextChannel } from 'discord.js';
 
 import RoleReaction from '../entities/RoleReaction';
-import { EventHandler, Event } from '../Event';
+import { EventHandler, Event } from '../types/Event';
 import { getNorthernOrder } from '..';
 import { channels } from '../config';
 
 const handler: EventHandler = async (reaction: MessageReaction, user: User | PartialUser) => {
   const north = getNorthernOrder();
-  if (!north) throw new Error('No NRTH, WTF?');
   if (user.bot) return;
   if (reaction.partial) {
     try {

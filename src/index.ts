@@ -4,19 +4,23 @@ import 'dotenv/config';
 import fs from 'fs';
 import path from 'path';
 
-import { Client } from 'discord.js';
+import { Client, Guild } from 'discord.js';
 import { createConnection } from 'typeorm';
 
-import { Event } from './Event';
+import { Event } from './types/Event';
+import RoleReaction from './entities/RoleReaction';
 
 const isDev = process.env.NODE_ENV !== 'production';
 
+export const P = process.env.PREFIX;
+
 export const bot = new Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 
-export const getNorthernOrder = () => bot.guilds.cache.get('175474010409271297');
+export const getNorthernOrder = (): Guild => bot.guilds.cache.get('175474010409271297') as Guild;
 
 bot.on('ready', () => {
   console.log('Ready!');
+  bot.user?.setActivity('Northern Order', { type: 'WATCHING' });
 });
 
 bot.on('warn', console.warn);
@@ -30,13 +34,12 @@ const bootstrap = async () => {
     url: process.env.DB_URL,
     logging: true,
     synchronize: isDev,
-    entities: [`${__dirname}/entities/*.ts`, `${__dirname}/entities/*.js`],
+    entities: [RoleReaction],
   });
+  console.log('DB Connected');
 
   // get list of files that implement bot events
-  const eventFiles = fs
-    .readdirSync(path.join(__dirname, 'events'))
-    .filter((file: string) => file.endsWith('.ts') || file.endsWith('.js'));
+  const eventFiles = fs.readdirSync(path.join(__dirname, 'events'));
 
   // load all events to bot
   eventFiles.forEach(async (file) => {
@@ -47,6 +50,7 @@ const bootstrap = async () => {
 
   // login the bot
   await bot.login(process.env.BOT_TOKEN);
+  console.log('Logged In');
 };
 
 bootstrap();

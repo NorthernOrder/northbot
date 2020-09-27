@@ -13,7 +13,8 @@
     "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true
+    "emitDecoratorMetadata": true,
+    "typeRoots": ["node_modules/@types", "src/types/env.d.ts"]
   },
-  "include": ["src"]
+  "include": ["src/**/*"]
 }
